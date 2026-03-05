@@ -66,6 +66,15 @@ Concrete bugs I noticed immediately:
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
 - What change did you make that finally gave the game a stable secret number?
 
+- Why the secret number kept changing in the original app:
+  Streamlit reruns the script from top to bottom every time I interacted with the UI (like clicking Submit). In the original version, the secret number (or related state) was being created/modified during those reruns instead of being stored as stable session state, so it could change unexpectedly or behave inconsistently.
+
+- How I would explain reruns + session state to a friend:
+  Streamlit works like this: every button click or input change re-executes your Python file from the top. If you store values in normal variables, they get recreated each rerun. `st.session_state` is like a per-user memory dictionary that survives reruns, so you put things like “secret number”, “attempts”, and “score” there to keep them consistent.
+
+- What change finally gave the game a stable secret number:
+  I stored the secret number in `st.session_state` and only initialized it when it didn’t already exist (or when starting a new game / switching difficulty). I also reset the game using a button callback (`on_click=reset_game`) so state updates happened safely without Streamlit’s “cannot be modified after widget instantiation” error.
+
 ---
 
 ## 5. Looking ahead: your developer habits
@@ -74,3 +83,21 @@ Concrete bugs I noticed immediately:
   - This could be a testing habit, a prompting strategy, or a way you used Git.
 - What is one thing you would do differently next time you work with AI on a coding task?
 - In one or two sentences, describe how this project changed the way you think about AI generated code.
+
+- One habit I want to reuse:
+  I want to keep writing small, targeted tests (or a quick manual reproduction checklist) for each bug fix, and run `pytest` after each meaningful change. I also want to keep making small commits after each stable checkpoint.
+
+- One thing I would do differently next time working with AI:
+  I would ask the AI for smaller diffs and explicitly ask it to account for Streamlit reruns/session_state rules. I would also verify suggestions immediately by running the app/tests, instead of applying multiple AI changes before checking.
+
+- How this project changed how I think about AI-generated code:
+  I now treat AI-generated code as a draft that can look plausible but still break on state, edge cases, and testability. I trust it only after I can reproduce the bug, apply a fix I understand, and verify it with tests and real runtime behavior.
+
+---
+
+## 6. AI model / prompt comparison (stretch)
+
+I asked both Copilot Chat (VS Code) and ChatGPT to fix the Streamlit error: “st.session_state.<key> cannot be modified after the widget is instantiated.”  
+Copilot suggested clearing the text input by directly assigning `st.session_state["guess_input_Normal"] = ""` inside the reset function, but that approach triggered the same Streamlit exception when called after the widget existed.  
+ChatGPT suggested switching the reset to a Streamlit callback (`st.button(..., on_click=reset_game)`), which avoided mutating the widget key after instantiation and fixed the crash.  
+Copilot’s explanation was shorter and focused on code edits, while ChatGPT’s explanation more clearly described the *reason* (Streamlit reruns + widget lifecycle) and the safer pattern to use.
