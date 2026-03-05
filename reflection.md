@@ -23,6 +23,19 @@ Concrete bugs I noticed immediately:
 - Give one example of an AI suggestion that was correct (including what the AI suggested and how you verified the result).
 - Give one example of an AI suggestion that was incorrect or misleading (including what the AI suggested and how you verified the result).
 
+- AI tools used:
+  - GitHub Copilot Chat (in VS Code) for explaining code paths and generating pytest tests.
+  - ChatGPT for proposing refactors and identifying likely Streamlit session_state issues.
+
+- Example of a correct AI suggestion:
+  - What the AI suggested: Move game logic out of `app.py` into `logic_utils.py` as pure functions (ex: `check_guess`, `parse_guess`) and fix the high/low comparison so guesses greater than the secret return "Too High" and guesses lower return "Too Low".
+  - How I verified it: I added/updated pytest tests in `test_game_logic.py` (ex: `check_guess(60, 50) == "Too High"` and `check_guess(40, 50) == "Too Low"`), ran `pytest`, and confirmed the tests passed. I also ran the Streamlit app and verified the hint messages matched the debug secret.
+
+- Example of an incorrect or misleading AI suggestion:
+  - What the AI suggested: Clear the text input by setting `st.session_state["guess_input_Normal"] = ""` inside `reset_game()` and calling `reset_game()` directly when the “New Game” button is clicked.
+  - Why it was misleading: Streamlit throws `StreamlitAPIException: ... cannot be modified after the widget with key ... is instantiated` if you modify a widget’s session_state key after it has already been created in that run.
+  - How I verified it: I ran the app, clicked “New Game”, and reproduced the exception. I fixed it by changing the button to use a callback (`st.button("New Game 🔁", on_click=reset_game)`), then re-ran the app and confirmed the error was gone.
+
 ---
 
 ## 3. Debugging and testing your fixes
