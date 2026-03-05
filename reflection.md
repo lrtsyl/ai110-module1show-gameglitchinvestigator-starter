@@ -45,6 +45,19 @@ Concrete bugs I noticed immediately:
   and what it showed you about your code.
 - Did AI help you design or understand any tests? How?
 
+- How I decided a bug was really fixed:
+  I considered a bug fixed only when I could (1) reproduce the original bad behavior, (2) make a change that prevents it, and (3) verify the change both in the running Streamlit app and with automated tests (pytest). If the app “looked fine” but I couldn’t explain why, I didn’t count it as fixed yet.
+
+- At least one test I ran and what it showed:
+  I ran `pytest` after updating `logic_utils.py` and `tests/test_game_logic.py`. For example, I added tests like:
+  - `check_guess(60, 50)` should return `"Too High"`
+  - `check_guess(40, 50)` should return `"Too Low"`
+  These tests proved the high/low logic was correct and stayed correct after refactoring.
+  I also ran the Streamlit app (`python -m streamlit run app.py`) and used the debug panel showing the secret number to manually verify that the hint message matched the secret during gameplay.
+
+- Did AI help with tests? How?
+  Yes. AI (Copilot/ChatGPT) suggested writing small, deterministic pytest tests that directly target the bug (like “guess 60 when secret is 50 returns Too High”) instead of relying on random secrets. It also helped me think of input edge cases to test (like decimals or whitespace), and I verified the tests by running `pytest` and checking that failures matched the bug before the fix and passed after.
+
 ---
 
 ## 4. What did you learn about Streamlit and state?
