@@ -29,9 +29,26 @@ It wrote the code, ran away, and now the game is unplayable.
 - [ ] Detail which bugs you found.
 - [ ] Explain what fixes you applied.
 
+### Game purpose
+A Streamlit number-guessing game. The player selects a difficulty, guesses a secret number in a range, receives hints (“Too High/Too Low”), and earns a score based on attempts.
+
+### Bugs found
+- The hint direction was inconsistent/backwards (the game would say “Too High” but tell the player to go higher, etc.).
+- The game’s secret number behavior was unreliable (type/state issues made outcomes feel random).
+- “New Game”/difficulty settings were not consistently applied to the secret number/range.
+
+### Fixes applied
+- Moved core logic into `logic_utils.py` as pure functions (parsing, comparing guesses, scoring).
+- Fixed comparison logic for “Too High” vs “Too Low” and corrected the hint messaging.
+- Stored game state in `st.session_state` and reset state safely using a Streamlit callback (`on_click=reset_game`).
+- Added/expanded pytest tests to lock the bug fixes and prevent regressions.
+
 ## 📸 Demo
 
 - [ ] [Insert a screenshot of your fixed, winning game here]
+
+![Winning game screenshot](images/win.png)
+![Tests passing screenshot](images/pytest.png)
 
 ## 🚀 Stretch Features
 
