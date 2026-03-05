@@ -25,9 +25,9 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- [x] Describe the game's purpose.
+- [x] Detail which bugs you found.
+- [x] Explain what fixes you applied.
 
 ### Game purpose
 A Streamlit number-guessing game. The player selects a difficulty, guesses a secret number in a range, receives hints (“Too High/Too Low”), and earns a score based on attempts.
@@ -45,11 +45,15 @@ A Streamlit number-guessing game. The player selects a difficulty, guesses a sec
 
 ## 📸 Demo
 
-- [ ] [Insert a screenshot of your fixed, winning game here]
+- [x] Insert a screenshot of your fixed, winning game here
+- [x] Insert a screenshot of pytest results showing passing tests
 
 ![Winning game screenshot](images/win.png)
 ![Tests passing screenshot](images/pytest.png)
 
 ## 🚀 Stretch Features
 
-- [ ] [If you choose to complete Challenge 4, insert a screenshot of your Enhanced Game UI here]
+- [x] Advanced Edge-Case Testing
+- [x] Feature Expansion (High Score + Guess History)
+- [x] Professional Documentation and Style
+- [x] AI Model / Prompt Comparison
