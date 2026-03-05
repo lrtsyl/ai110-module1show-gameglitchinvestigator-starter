@@ -8,6 +8,13 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 - List at least two concrete bugs you noticed at the start  
   (for example: "the secret number kept changing" or "the hints were backwards").
 
+The first time I ran the game, it looked like a normal Streamlit guessing game with a difficulty selector, a score, and a “Developer Debug Info” panel showing the secret number. However, the game behavior didn’t match what the UI was telling me, so it felt unreliable even when I could see the secret.
+
+Concrete bugs I noticed immediately:
+- The hints were backwards: when my guess was higher than the secret, it would say “Too High” but then tell me “Go HIGHER!” (and the reverse for too low).
+- The “New Game” button ignored the selected difficulty/range (it always generated a 1–100 secret), and the main prompt text always said “Guess a number between 1 and 100” even if the difficulty range was different.
+- The score behaved strangely (for example, some wrong guesses could increase the score), and attempts didn’t feel consistent because invalid inputs could still affect attempts/history.
+
 ---
 
 ## 2. How did you use AI as a teammate?
