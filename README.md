@@ -57,3 +57,5 @@ A Streamlit number-guessing game. The player selects a difficulty, guesses a sec
 - [x] Feature Expansion (High Score + Guess History)
 - [x] Professional Documentation and Style
 - [x] AI Model / Prompt Comparison
+
+I used Copilot Agent Mode to coordinate the multi-file feature change (adding `storage_utils.py` and wiring it into `app.py`), then verified it with `pytest` and manual gameplay.
